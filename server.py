@@ -13,11 +13,10 @@ def emotion_detector_route():
     result = emotion_detector(text_to_analyze)
 
     # validate the result
-    output = ''
     if 'dominant_emotion' not in result or result['dominant_emotion'] is None:
-        output = "Error: Unable to detect emotion"
+        return "Invalid text! Please try again!"
     else:
-        output = "For the given statement, the system response is 'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, 'joy': {joy} and 'sadness': {sadness}. The dominant emotion is <b>{dominant_emotion}</b>.".format(
+        return "For the given statement, the system response is 'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, 'joy': {joy} and 'sadness': {sadness}. The dominant emotion is <b>{dominant_emotion}</b>.".format(
             anger=result['anger'],
             disgust=result['disgust'],
             fear=result['fear'],
@@ -25,8 +24,6 @@ def emotion_detector_route():
             sadness=result['sadness'],
             dominant_emotion=result['dominant_emotion']
         )
-
-    return output
 
 @app.route("/")
 def render_index_page():
