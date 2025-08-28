@@ -4,10 +4,11 @@ from EmotionDetection.emotion_detection import emotion_detector
 app = Flask("Emotion Detection App")
 
 @app.route("/emotionDetector")
-def emotion_detector():
+def emotion_detector_route():
 
     # Get the text from the query parameters
-    text_to_analyze = request.args.get('text_to_analyze')
+    text_to_analyze = request.args.get('textToAnalyze')
+    print(text_to_analyze)
     # Call the emotion detector function
     result = emotion_detector(text_to_analyze)
 
@@ -16,7 +17,7 @@ def emotion_detector():
     if 'dominant_emotion' not in result or result['dominant_emotion'] is None:
         output = "Error: Unable to detect emotion"
     else:
-        output = f"For the given statement, the system response is 'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, 'joy': {joy} and 'sadness': {sadness}. The dominant emotion is <b>{dominant_emotion}</b>.".format(
+        output = "For the given statement, the system response is 'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, 'joy': {joy} and 'sadness': {sadness}. The dominant emotion is <b>{dominant_emotion}</b>.".format(
             anger=result['anger'],
             disgust=result['disgust'],
             fear=result['fear'],
